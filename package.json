@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node server.js",
     "test": "jest --forceExit --maxWorkers=1",
+    "build": "npm-run-all clean compile:all",
     "clean": "rimraf ./build && mkdir build",
     "compile:moviemodels": "babel ./api/movies --out-dir build/api/movies",
     "compile:usermodels": "babel ./api/users --out-dir build/api/users",
