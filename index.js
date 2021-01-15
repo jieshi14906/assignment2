@@ -40,8 +40,8 @@ app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRou
 app.use('/api/users', usersRouter);
 app.use(errHandler);
 
-
-
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });
+
+export default app;
