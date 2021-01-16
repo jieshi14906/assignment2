@@ -22,7 +22,7 @@ stages:
   - staging
   - deploy
 
-Jobs:
+#Jobs:
 
 install_dependencies:
   stage: install
