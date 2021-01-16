@@ -8,6 +8,9 @@ import genresRouter from './api/genres';
 import bodyParser from 'body-parser';
 import {loadUsers, loadMovies} from './seedData';
 import usersRouter from './api/users';
+import swaggerUi from 'swagger-ui-express';
+import specs from './swagger.json';
+
 
 
 dotenv.config();
@@ -25,8 +28,6 @@ if (process.env.SEED_DB) {
 }
 const app = express();
 
-const port = process.env.PORT;
-
 app.use(session({
   secret: 'ilikecake',
   resave: true,
@@ -34,12 +35,16 @@ app.use(session({
 }));
 
 app.use(passport.initialize());
-app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
 app.use('/api/genres', genresRouter);
 app.use('/api/users', usersRouter);
+app.use(
+  "/",
+  swaggerUi.serve,
+  swaggerUi.setup(specs)
+);
 app.use(errHandler);
 
 export default app;
