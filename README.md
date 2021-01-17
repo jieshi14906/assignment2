@@ -1,15 +1,19 @@
 # Assignment 2 - Web API.
 
-Name: Your Name
+Name: Jie Shi
 
 ## Features.
 
 ...... A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** ......,
  
- + Feature 1 - .... a statement of its purpose/objective ..... 
- + Feature 2 - .......
- + Feature 3 = ......
- + etc
+ + Feature 1 - 3 new API endpoint 
+ + Feature 2 - Error handling
+ + Feature 3 = Mongo integration
+ + Feature 4 - Basic Authentication
+ + Feature 5 - Link some API endponit in this assignment with assignment1
+ + Feature 6 - GET and POST data to API
+ + Feature 7 - Object referencing in Mongo/Mongoose
+ + Feature 8 - Add API Documentations with Swagger
 
 ## Installation Requirements
 
@@ -18,7 +22,7 @@ Describe what needs to be on the machine to run the API (Node v?, NPM, MongoDB i
 Describe getting/installing the software, perhaps:
 
 ```bat
-git clone http:\myrepo.git
+git clone https://github.com/jieshi14906/movies-api
 ```
 
 followed by installation
