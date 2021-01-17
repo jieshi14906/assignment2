@@ -22,13 +22,16 @@ Describe what needs to be on the machine to run the API (Node v?, NPM, MongoDB i
 Describe getting/installing the software, perhaps:
 
 ```bat
-git clone https://github.com/jieshi14906/movies-api
+git clone https://github.com/jieshi14906/assignment2
 ```
 
 followed by installation
 
 ```bat
-git install
+npm i
+npm start -- start for the app with port 8080
+npm run start:swagger -- start for the app with port 8080 with swagger(/api-docs)
+
 ```
 
 ## API Configuration
@@ -39,9 +42,9 @@ REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON G
 NODE_ENV=development
 PORT=8080
 HOST=
-mongoDB=YourMongoURL
+mongoDB=CloudMongoURL
 seedDb=true
-secret=YourJWTSecret
+secret=JWT TOKEN SALT
 ```
 
 
@@ -51,31 +54,51 @@ Give an overview of your web API design, perhaps similar to the following:
 |  |  GET | POST | PUT | DELETE
 | -- | -- | -- | -- | -- 
 | /api/movies |Gets a list of movies | N/A | N/A |
-| /api/movies/{movieid} | Get a Movie | N/A | N/A | N/A
+| /api/movies/{movieid} | Get a Movie of the specific id | N/A | N/A | N/A
 | /api/movies/{movieid}/reviews | Get all reviews for movie | Create a new review for Movie | N/A | N/A  
-| ... | ... | ... | ... | ...
+| /api/users | Get a list of users | N/A | N/A | N/A
+| /api/genres | Get a list of generes | N/A | N/A | N/A
+| /api/users/{userName}/favourites | Get a list of the favourite movies of users | N/A | N/A | N/A
+| /api/users/{id} | N/A | N/A | Update user by id | N/A
+| /api/users/{userName}/favourites | N/A | Add a movie to favourite list | N/A | N/A
+| /api/users/action | N/A | Post user data | N/A | N/A
 
-If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
+![][swagger]
+If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https:https://moviesapistaging.herokuapp.com/)).(swagger ui page)
 
 
 ## Security and Authentication
 Give details of authentication/ security implemented on the API(e.g. passport/sessions). Indicate which routes are protected.
+protect routes:
++/api/users/:username/favourites POST
++/api/users/:username/favourites GET
 
 ## Integrating with React App
 
 Describe how you integrated your React app with the API. Perhaps link to the React App repo and give an example of an API call from React App. For example: 
 
 ~~~Javascript
-export const getMovies = () => {
-  return fetch(
-     '/api/movies',{headers: {
-       'Authorization': window.localStorage.getItem('token')
+export async function loadUsers() {
+  console.log('load user Data');
+    try {
+      await userModel.deleteMany();
+      await users.forEach(user => userModel.create(user));
+      console.info(`${users.length} users were successfully stored.`);
+    } catch (err) {
+      console.error(`failed to Load user Data: ${err}`);
     }
   }
-  )
-    .then(res => res.json())
-    .then(json => {return json.results;});
-};
+  export async function loadMovies() {
+    console.log('load seed data');
+    console.log(movies.length);
+    try {
+      await movieModel.deleteMany();
+      await movieModel.collection.insertMany(movies);
+      console.info(`${movies.length} Movies were successfully stored.`);
+    } catch (err) {
+      console.error(`failed to Load movie Data: ${err}`);
+    }
+  }
 
 ~~~
 
@@ -85,35 +108,44 @@ export const getMovies = () => {
 
 ## Independent learning.
 
-. . State the non-standard aspects of React/Express/Node (or other related technologies) that you researched and applied in this assignment . .  
-
++ swagger ui page
+ In heroku, I build the swagger documentation. Every route can be visited because the authorization and implement the swagger.
 # Assignment 2 - Agile Software Practice.
 
-Name: ... your name ...
+Name: Jie Shi
 
 ## Target Web API.
 
 ...... Document the Web API that is the target for this assignment's CI/CD pipeline. Include the API's endpoints and any other features relevant to the creation of a suitable pipeline, e.g.
 
-+ Get /api/movies - returns an array of movie objects.
-+ Get /api/movies/:id - returns detailed information on a specific movie.
-+ Put /api/movies/:id - update a specific movie. The request payload includes the some/all of the following movie properties to be updated: title, genre list, release date.
-+ Post /api/movies - add a new movie to the database.
-+ etc.
-+ etc.  
-
++ Get/api/movies - get movies lists.
++ Get/api/movies/{movieid} - returns the movie id on a specific movie.
++ Put/api/users/{id} - update user by id
++ Post/api/users/{userName}/favourites- post a movie to favourite list
++ Post/api/users/action - post user data
++ Get/api/users/{userName}/favourites - return user favpurites movies.  
++ Get/api/users - returns an array of user objects.
++ Get/api/genres - returns the generes list
 ## Error/Exception Testing.
 
 .... From the list of endpoints above, specify those that have error/exceptional test cases in your test code, the relevant test file and the nature of the test case(s), e.g.
 
 + Post /api/movies - test when the new movie has no title, invalid release date, empty genre list. Test adding a movie without prior authentication. See tests/functional/api/movies/index.js 
++ Get /api/movies - test  movies list whether the token is valid and invalid
++ Get /api/movies/:id - test a specific movie whether the id is valid and invalid.
++ Get /api/users - test users list
++ Get /api/users/{userName}/favourites- test to get users favourites list with vaild username
++ Get /api/genres - test generes list
++ Post /api/users/{userName}/favourites- test to post a movie to favourites with vaild movie id
++ Post /api/users/action - test to post user data
++ Put /api/users/{id} - test to update user data by valid user id
+
 
 ## Continuous Delivery/Deployment.
 
 ..... Specify the URLs for the staging and production deployments of your web API, e.g.
 
-+ https://movies-api-trial-staging.herokuapp.com/ - Staging deployment
-+ https://movies-api-production.herokuapp.com/ - Production
++ https://dashboard.heroku.com/apps/moviesapistaging - Staging deployment
 
 .... Show a screenshots from the overview page for the two Heroku apps e,g,
 
@@ -123,7 +155,7 @@ Name: ... your name ...
 
 + Production app overview 
 
-[ , , , screenshot here . . . ]
+![][production]
 
 [If an alternative platform to Heroku was used then show the relevant page from that platform's UI.]
 
@@ -133,3 +165,5 @@ Name: ... your name ...
 
 
 [stagingapp]: ./img/stagingapp.png
+[production]: ./img/production.png
+[swagger]: ./img/swagger.png
