@@ -164,6 +164,6 @@ Name: Jie Shi
 ... Specify the feature(s) in your web API that is/are controlled by a feature flag(s). Mention the source code files that contain the Optimizerly code that implement the flags. Show screenshots (with appropriate captions) from your Optimizely account that prove you successfully configured the flags.
 
 
-[stagingapp]: .api/img/stagingapp.png
-[production]: .api/img/production.png
-[swagger]: .api/img/swagger.png
+[stagingapp]: ./api/img/stagingapp.png
+[production]: ./api/img/production.png
+[swagger]: ./api/img/swagger.png
